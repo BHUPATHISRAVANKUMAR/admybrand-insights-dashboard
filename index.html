@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADmyBRAND Insights - Analytics Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <span class="logo-text">ADmyBRAND Insights</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Overview</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-chart-bar"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-bullhorn"></i>
+                <span>Campaigns</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Audience</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-file-alt"></i>
+                <span>Reports</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search campaigns, metrics..." class="search-input">
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="date-picker-container">
+                    <select class="date-range-picker" id="dateRange">
+                        <option value="7d">Last 7 days</option>
+                        <option value="30d" selected>Last 30 days</option>
+                        <option value="90d">Last 90 days</option>
+                        <option value="1y">Last year</option>
+                    </select>
+                </div>
+                <button class="export-btn" id="exportPDF">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>PDF</span>
+                </button>
+                <button class="export-btn" id="exportCSV">
+                    <i class="fas fa-file-csv"></i>
+                    <span>CSV</span>
+                </button>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="user-profile">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'%3E%3C/path%3E%3Ccircle cx='12' cy='7' r='4'%3E%3C/circle%3E%3C/svg%3E" alt="User" class="user-avatar">
+                    <span class="user-name">John Doe</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <main class="dashboard">
+            <div class="dashboard-header">
+                <h1>Dashboard Overview</h1>
+                <p class="dashboard-subtitle">Monitor your digital marketing performance</p>
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="loading-spinner"></div>
+                <p>Loading dashboard data...</p>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-card-skeleton" id="revenueSkeleton">
+                        <div class="skeleton-title"></div>
+                        <div class="skeleton-value"></div>
+                        <div class="skeleton-change"></div>
+                    </div>
+                    <div class="kpi-card-content hidden" id="revenueContent">
+                        <div class="kpi-header">
+                            <h3>Total Revenue</h3>
+                            <div class="kpi-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="revenueValue">$847,293</div>
+                        <div class="kpi-change positive" id="revenueChange">
+                            <i class="fas fa-arrow-up"></i>
+                            +12.1% from last month
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-card-skeleton" id="usersSkeleton">
+                        <div class="skeleton-title"></div>
+                        <div class="skeleton-value"></div>
+                        <div class="skeleton-change"></div>
+                    </div>
+                    <div class="kpi-card-content hidden" id="usersContent">
+                        <div class="kpi-header">
+                            <h3>Active Users</h3>
+                            <div class="kpi-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="usersValue">124,547</div>
+                        <div class="kpi-change positive" id="usersChange">
+                            <i class="fas fa-arrow-up"></i>
+                            +8.5% from last month
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-card-skeleton" id="conversionsSkeleton">
+                        <div class="skeleton-title"></div>
+                        <div class="skeleton-value"></div>
+                        <div class="skeleton-change"></div>
+                    </div>
+                    <div class="kpi-card-content hidden" id="conversionsContent">
+                        <div class="kpi-header">
+                            <h3>Conversions</h3>
+                            <div class="kpi-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="conversionsValue">15,634</div>
+                        <div class="kpi-change positive" id="conversionsChange">
+                            <i class="fas fa-arrow-up"></i>
+                            +15.7% from last month
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-card-skeleton" id="growthSkeleton">
+                        <div class="skeleton-title"></div>
+                        <div class="skeleton-value"></div>
+                        <div class="skeleton-change"></div>
+                    </div>
+                    <div class="kpi-card-content hidden" id="growthContent">
+                        <div class="kpi-header">
+                            <h3>Growth Rate</h3>
+                            <div class="kpi-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="growthValue">18.2%</div>
+                        <div class="kpi-change positive" id="growthChange">
+                            <i class="fas fa-arrow-up"></i>
+                            +2.1% from last month
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Revenue Trend</h3>
+                        <p>Monthly revenue over the past 12 months</p>
+                    </div>
+                    <div class="chart-container" style="position: relative; height: 300px;">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Campaign Performance</h3>
+                        <p>Conversions by marketing channel</p>
+                    </div>
+                    <div class="chart-container" style="position: relative; height: 300px;">
+                        <canvas id="channelChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Traffic Sources</h3>
+                        <p>Breakdown of traffic by source</p>
+                    </div>
+                    <div class="chart-container" style="position: relative; height: 300px;">
+                        <canvas id="trafficChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Table Section -->
+            <div class="table-section">
+                <div class="table-header">
+                    <h3>Campaign Performance</h3>
+                    <div class="table-controls">
+                        <div class="search-container">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search campaigns..." id="tableSearch" class="form-control">
+                        </div>
+                        <select class="channel-filter form-control" id="channelFilter">
+                            <option value="">All Channels</option>
+                            <option value="Social Media">Social Media</option>
+                            <option value="Email">Email</option>
+                            <option value="Search">Search</option>
+                            <option value="Display">Display</option>
+                            <option value="Video">Video</option>
+                            <option value="Audio">Audio</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="campaignTable">
+                        <thead>
+                            <tr>
+                                <th data-sort="name" class="sortable">Campaign Name <i class="fas fa-sort"></i></th>
+                                <th data-sort="channel" class="sortable">Channel <i class="fas fa-sort"></i></th>
+                                <th data-sort="spend" class="sortable">Spend <i class="fas fa-sort"></i></th>
+                                <th data-sort="clicks" class="sortable">Clicks <i class="fas fa-sort"></i></th>
+                                <th data-sort="cpc" class="sortable">CPC <i class="fas fa-sort"></i></th>
+                                <th data-sort="ctr" class="sortable">CTR <i class="fas fa-sort"></i></th>
+                                <th data-sort="conversions" class="sortable">Conversions <i class="fas fa-sort"></i></th>
+                                <th data-sort="conversionRate" class="sortable">Conv. Rate <i class="fas fa-sort"></i></th>
+                                <th data-sort="status" class="sortable">Status <i class="fas fa-sort"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Table rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="pagination">
+                    <!-- Pagination will be populated by JavaScript -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Success Messages -->
+    <div class="toast hidden" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Operation completed successfully</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
