@@ -1,5 +1,3 @@
-# admybrand-insights-dashboard
-
 # ADmyBRAND Insights - Analytics Dashboard
 
 ADmyBRAND Insights is a fictional yet fully functional analytics dashboard designed for digital marketing agencies. This responsive dashboard visualizes campaign performance, revenue trends, user growth, and other KPIs using interactive charts and data tables.
